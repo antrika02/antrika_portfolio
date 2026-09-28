@@ -1,0 +1,157 @@
+@import "tailwindcss";
+
+/* dark: variant follows the .dark class (set by next-themes) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --bg: #f6f6fb;
+  --bg-soft: #ffffff;
+  --fg: #0f1020;
+  --muted: #5b5e74;
+  --line: rgba(15, 16, 32, 0.09);
+  --card: rgba(255, 255, 255, 0.7);
+  --accent-1: #7c3aed;
+  --accent-2: #0891b2;
+  --accent-3: #db2777;
+  --easy: #0891b2;
+  --medium: #d97706;
+  --hard: #db2777;
+}
+
+.dark {
+  --bg: #06060c;
+  --bg-soft: #0c0c18;
+  --fg: #ecedf7;
+  --muted: #9a9cb8;
+  --line: rgba(255, 255, 255, 0.08);
+  --card: rgba(255, 255, 255, 0.035);
+  --accent-1: #a78bfa;
+  --accent-2: #22d3ee;
+  --accent-3: #f472b6;
+  --easy: #0e9fb8;
+  --medium: #c97f08;
+  --hard: #ec4899;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-soft: var(--bg-soft);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-card: var(--card);
+  --color-a1: var(--accent-1);
+  --color-a2: var(--accent-2);
+  --color-a3: var(--accent-3);
+  --font-sans: var(--ff-body), system-ui, sans-serif;
+  --font-display: var(--ff-display), system-ui, sans-serif;
+  --font-mono: var(--ff-code), ui-monospace, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--accent-1) 35%, transparent);
+}
+
+.text-gradient {
+  background: linear-gradient(100deg, var(--accent-1), var(--accent-2) 50%, var(--accent-3));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.bg-gradient-brand {
+  background: linear-gradient(100deg, var(--accent-1), var(--accent-2) 55%, var(--accent-3));
+}
+
+.glass {
+  background: var(--card);
+  border: 1px solid var(--line);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+/* Animated gradient border used on cards */
+.glow-border {
+  position: relative;
+  isolation: isolate;
+}
+.glow-border::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(from var(--angle, 0deg), var(--accent-1), var(--accent-2), var(--accent-3), var(--accent-1));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  animation: spin-angle 6s linear infinite;
+  z-index: -1;
+}
+.glow-border:hover::before {
+  opacity: 1;
+}
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes spin-angle {
+  to {
+    --angle: 360deg;
+  }
+}
+
+.grid-bg {
+  background-image: linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse at center, #000 20%, transparent 75%);
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+.caret {
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
