@@ -20,7 +20,7 @@ export const profile = {
   resume: "/Antrika_Kashyap_Resume.pdf",
   // Put your photo in /public (e.g. /public/me.jpg) and set photo: "/me.jpg".
   // Leave it as null to show the animated initials avatar instead.
-  photo: null as string | null,
+  photo: "/me.jpg" as string | null,
   socials: {
     github: "https://github.com/antrika02",
     linkedin: "https://www.linkedin.com/in/antrika-kashyap-070502250/",
